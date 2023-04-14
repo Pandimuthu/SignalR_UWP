@@ -1,0 +1,362 @@
+﻿<Page
+    x:Class="UwpClient.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:local="using:UwpClient"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uc="using:InstagramDesktopExam.UserControls">
+
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="250" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <!--  Main Menu  -->
+        <StackPanel Grid.RowSpan="2" Background="#f3f3f3">
+            <Image
+                Height="70"
+                Margin="0,13"
+                Source="/Assets/Icons/ins1.png" />
+
+            <uc:Profile Size="100" Source="/Assets/Images/me.jpg" />
+            <TextBlock
+                Margin="0,10,0,5"
+                FontSize="20"
+                FontWeight="SemiBold"
+                Text="Muthu Pandi"
+                TextAlignment="Center" />
+            <TextBlock
+                FontSize="14"
+                Foreground="#9a9a9a"
+                Text="@pandimuthu"
+                TextAlignment="Center" />
+
+            <Grid Margin="15,25">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Grid.Column="0">
+                    <TextBlock Style="{StaticResource mainText}" Text="1.2k" />
+                    <TextBlock Style="{StaticResource seconText}" Text="Followers" />
+                </StackPanel>
+                <StackPanel Grid.Column="1">
+                    <TextBlock Style="{StaticResource mainText}" Text="3" />
+                    <TextBlock Style="{StaticResource seconText}" Text="Posts" />
+                </StackPanel>
+                <StackPanel Grid.Column="2">
+                    <TextBlock Style="{StaticResource mainText}" Text="120" />
+                    <TextBlock Style="{StaticResource seconText}" Text="Following" />
+                </StackPanel>
+            </Grid>
+
+            <Button Style="{StaticResource activeMenuButton}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Assets/Icons/home.png" Style="{StaticResource menuButtonIcon}" />
+                    <TextBlock VerticalAlignment="Center" Text="Feed" />
+                </StackPanel>
+            </Button>
+            <Button Style="{StaticResource menuButton}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Assets/Icons/search.png" Style="{StaticResource menuButtonIcon}" />
+                    <TextBlock VerticalAlignment="Center" Text="Explore" />
+                </StackPanel>
+            </Button>
+
+            <Button Style="{StaticResource menuButton}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Assets/Icons/bell.png" Style="{StaticResource menuButtonIcon}" />
+                    <TextBlock VerticalAlignment="Center" Text="Notification" />
+                </StackPanel>
+            </Button>
+            <Button Style="{StaticResource menuButton}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Assets/Icons/email.png" Style="{StaticResource menuButtonIcon}" />
+                    <TextBlock VerticalAlignment="Center" Text="Messages" />
+                </StackPanel>
+            </Button>
+            <Button Style="{StaticResource menuButton}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Assets/Icons/send.png" Style="{StaticResource menuButtonIcon}" />
+                    <TextBlock VerticalAlignment="Center" Text="Direct" />
+                </StackPanel>
+            </Button>
+            <Button Style="{StaticResource menuButton}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Assets/Icons/setting.png" Style="{StaticResource menuButtonIcon}" />
+                    <TextBlock VerticalAlignment="Center" Text="Settings" />
+                </StackPanel>
+            </Button>
+            <Button Click="Button_Click_1" Style="{StaticResource menuButton}">
+                <StackPanel Orientation="Horizontal">
+                    <Image Source="/Assets/Icons/exit.png" Style="{StaticResource menuButtonIcon}" />
+                    <TextBlock VerticalAlignment="Center" Text="Exit" />
+                </StackPanel>
+            </Button>
+
+        </StackPanel>
+
+        <!--  Top part  -->
+        <StackPanel Grid.Column="1">
+            <!--  Top menu  -->
+            <Grid Margin="35,25,35,20">
+                <!--  TextBOX search  -->
+                <Border
+                    Width="220"
+                    HorizontalAlignment="Left"
+                    Background="#f3f3f3"
+                    BorderBrush="#f3f3f3"
+                    BorderThickness="1"
+                    CornerRadius="5">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Image
+                            Height="20"
+                            Margin="9,0,0,0"
+                            Source="/Assets/Icons/search.png" />
+                        <TextBlock
+                            x:Name="textSearch"
+                            Style="{StaticResource textHint}"
+                            Text="Search" />
+                        <TextBox
+                            x:Name="txtSearch"
+                            Margin="9,0,0,0"
+                            Style="{StaticResource textBox}"
+                            TextChanged="txtSearch_TextChanged" />
+
+
+                    </Grid>
+                </Border>
+
+                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                    <Grid>
+                        <Ellipse
+                            Width="20"
+                            Height="20"
+                            HorizontalAlignment="Right"
+                            VerticalAlignment="Top"
+                            Fill="Red" />
+                        <TextBlock
+                            x:Name="BroadcastResults"
+                            Margin="0,0,5,21"
+                            HorizontalAlignment="Right"
+                            Foreground="White"
+                            Text="1" />
+                        <Button Style="{StaticResource roundButton}">
+                            <Image Width="22" Source="/Assets/Icons/Bell.png" />
+                            <Button.Flyout>
+                                <Flyout>
+                                    <ScrollViewer Height="300" VerticalScrollBarVisibility="Auto">
+                                        <ListView x:Name="notiifcationList" ItemsSource="{x:Bind MessageList}" />
+                                    </ScrollViewer>
+                                </Flyout>
+                            </Button.Flyout>
+                        </Button>
+                    </Grid>
+                    <Button Click="message" Style="{StaticResource roundButton}">
+                        <Image Width="22" Source="/Assets/Icons/email.png" />
+                    </Button>
+
+                    <Button
+                        Background="White"
+                        Click="Button_Click"
+                        Foreground="White"
+                        Style="{StaticResource addButton}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image
+                                Width="23"
+                                Margin="0,0,7,0"
+                                Source="/Assets/Icons/more.png" />
+                            <TextBlock VerticalAlignment="Center" Text="Add Post" />
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+
+            </Grid>
+
+            <Grid Margin="35,0,35,15">
+                <TextBlock
+                    HorizontalAlignment="Left"
+                    FontSize="20"
+                    FontWeight="Bold"
+                    Foreground="#333333"
+                    Text="Stories" />
+                <TextBlock
+                    HorizontalAlignment="Right"
+                    Style="{StaticResource textButton}"
+                    Text="Watch All" />
+            </Grid>
+
+            <ScrollViewer
+                Margin="35,0"
+                Padding="0,0,0,10"
+                HorizontalScrollBarVisibility="Auto"
+                VerticalScrollBarVisibility="Disabled">
+                <StackPanel Orientation="Horizontal">
+                    <uc:Profile
+                        Margin="10,0,0,0"
+                        Padding="5"
+                        Size="70"
+                        Source="/Assets/Images/1.jpg" />
+                    <uc:Profile
+                        Margin="10,0,0,0"
+                        Padding="5"
+                        Size="70"
+                        Source="/Assets/Images/2.jpg" />
+                    <uc:Profile
+                        Margin="10,0,0,0"
+                        Padding="5"
+                        Size="70"
+                        Source="/Assets/Images/3.jpg" />
+                    <uc:Profile
+                        Margin="10,0,0,0"
+                        Padding="5"
+                        Size="70"
+                        Source="/Assets/Images/4.jpg" />
+                    <uc:Profile
+                        Margin="10,0,0,0"
+                        Padding="5"
+                        Size="70"
+                        Source="/Assets/Images/5.jpg" />
+                    <uc:Profile
+                        Margin="10,0,0,0"
+                        Padding="5"
+                        Size="70"
+                        Source="/Assets/Images/6.jpg" />
+                    <uc:Profile
+                        Margin="10,0,0,0"
+                        Padding="5"
+                        Size="70"
+                        Source="/Assets/Images/karim.jpg" />
+                    <uc:Profile
+                        Margin="10,0,0,0"
+                        Padding="5"
+                        Size="70"
+                        Source="/Assets/Images/me.jpg" />
+
+
+                    <uc:Profile
+                        Margin="10,0,0,0"
+                        Padding="5"
+                        Size="70"
+                        Source="/Assets/Images/22.jpg" />
+                </StackPanel>
+            </ScrollViewer>
+            <Grid Margin="35,0">
+                <TextBlock
+                    HorizontalAlignment="Left"
+                    FontSize="20"
+                    FontWeight="SemiBold"
+                    Text="Feed" />
+                <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+                    <TextBlock Style="{StaticResource activeTextButton}" Text="Latest" />
+                    <TextBlock
+                        Margin="15,0,0,0"
+                        Style="{StaticResource textButton}"
+                        Text="Popular" />
+                </StackPanel>
+            </Grid>
+
+
+        </StackPanel>
+
+        <!--  Posts  -->
+        <ScrollViewer
+            Grid.Row="1"
+            Grid.Column="1"
+            Margin="30,0,30,10"
+            HorizontalScrollBarVisibility="Disabled"
+            VerticalScrollBarVisibility="Auto">
+            <GridView x:Name="thisGridView" IsItemClickEnabled="True">
+                <GridView.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <ItemsWrapGrid
+                            x:Name="thisItemsWrapGrid"
+                            MaximumRowsOrColumns="5"
+                            Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </GridView.ItemsPanel>
+                <uc:Post
+                    Comments="56"
+                    Likes="23"
+                    PostSource="/Assets/Images/1.jpg"
+                    ProfileName="Aziz"
+                    ProfileSource="/Assets/Images/1.jpg" />
+                <uc:Post
+                    Comments="56"
+                    Likes="23"
+                    PostSource="/Assets/Images/2.jpg"
+                    ProfileName="Aziz"
+                    ProfileSource="/Assets/Images/2.jpg" />
+                <uc:Post
+                    Comments="56"
+                    Likes="23"
+                    PostSource="/Assets/Images/3.jpg"
+                    ProfileName="Aziz"
+                    ProfileSource="/Assets/Images/3.jpg" />
+                <uc:Post
+                    Comments="56"
+                    Likes="23"
+                    PostSource="/Assets/Images/4.jpg"
+                    ProfileName="Aziz"
+                    ProfileSource="/Assets/Images/4.jpg" />
+                <uc:Post
+                    Comments="56"
+                    Likes="23"
+                    PostSource="/Assets/Images/5.jpg"
+                    ProfileName="Aziz"
+                    ProfileSource="/Assets/Images/5.jpg" />
+                <uc:Post
+                    Comments="56"
+                    Likes="23"
+                    PostSource="/Assets/Images/6.jpg"
+                    ProfileName="Aziz"
+                    ProfileSource="/Assets/Images/6.jpg" />
+                <uc:Post
+                    Comments="56"
+                    Likes="23"
+                    PostSource="/Assets/Images/7.jpg"
+                    ProfileName="Aziz"
+                    ProfileSource="/Assets/Images/7.jpg" />
+                <uc:Post
+                    Comments="56"
+                    Likes="23"
+                    PostSource="/Assets/Images/8.jpg"
+                    ProfileName="Aziz"
+                    ProfileSource="/Assets/Images/8.jpg" />
+                <uc:Post
+                    Comments="56"
+                    Likes="23"
+                    PostSource="/Assets/Images/me.jpg"
+                    ProfileName="Muthu"
+                    ProfileSource="/Assets/Images/me.jpg" />
+                <uc:Post
+                    Comments="56"
+                    Likes="23"
+                    PostSource="/Assets/Images/karim.jpg"
+                    ProfileName="Aziz"
+                    ProfileSource="/Assets/Images/karim.jpg" />
+            </GridView>
+        </ScrollViewer>
+
+
+
+
+
+
+
+
+    </Grid>
+</Page>
